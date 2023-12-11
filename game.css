@@ -1,0 +1,27 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin-top: 50px;
+}
+
+#results {
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.dice-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.die {
+  font-size: 4em;
+  margin: 0 10px;
+}
