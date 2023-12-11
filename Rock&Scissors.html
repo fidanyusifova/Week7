@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rock Paper Scissors Game</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    
+    #score {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    
+    .moves {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    
+    .move-btn {
+      padding: 10px 20px;
+      margin: 0 10px;
+      cursor: pointer;
+      font-size: 18px;
+      border: 2px solid #333;
+      border-radius: 5px;
+    }
+    
+    .result {
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="score">Overall Score: 0</div>
+  
+  <div class="moves">
+    <button class="move-btn" onclick="startRound()">Start 1st Round</button>
+    <button class="move-btn" onclick="startRound()">Start 2nd Round</button>
+    <button class="move-btn" onclick="startRound()">Start 3rd Round</button>
+    <!-- Add more buttons for additional rounds as needed -->
+  </div>
+  
+  <div>
+    <p>User's Choice: <span id="userChoice"></span></p>
+    <p>Computer's Choice: <span id="computerChoice"></span></p>
+    <p class="result" id="roundResult"></p>
+  </div>
+
+  <script>
+    let roundCounter = 0;
+    let userScore = 0;
+    let computerScore = 0;
+
+    function startRound() {
+      roundCounter++;
+      const userChoiceElement = document.getElementById('userChoice');
+      const computerChoiceElement = document.getElementById('computerChoice');
+      const roundResultElement = document.getElementById('roundResult');
+      
+      userChoiceElement.textContent = '';
+      computerChoiceElement.textContent = '';
+      roundResultElement.textContent = '';
+      
+      userChoiceElement.innerHTML = '<strong>Your Choice:</strong>';
+      const moves = ['rock', 'paper', 'scissors'];
+      
+      for (let i = 0; i < moves.length; i++) {
+        const btn = document.createElement('button');
+        btn.textContent = moves[i];
+        btn.classList.add('move-btn');
+        btn.onclick = function() {
+          const userMove = moves[i];
+          const computerMove = moves[Math.floor(Math.random() * moves.length)];
+          userChoiceElement.textContent = `Your Choice: ${userMove}`;
+          computerChoiceElement.textContent = `Computer's Choice: ${computerMove}`;
+          const result = determineWinner(userMove, computerMove);
+          roundResultElement.textContent = result;
+          updateScore(result);
+        };
+        document.body.appendChild(btn);
+      }
+    }
+
+    function determineWinner(userMove, computerMove) {
+      if (userMove === computerMove) {
+        return "It's a Draw!";
+      } else if (
+        (userMove === 'rock' && computerMove === 'scissors') ||
+        (userMove === 'paper' && computerMove === 'rock') ||
+        (userMove === 'scissors' && computerMove === 'paper')
+      ) {
+        return 'You Win!';
+      } else {
+        return 'Computer Wins!';
+      }
+    }
+
+    function updateScore(result) {
+      const scoreElement = document.getElementById('score');
+      if (result === 'You Win!') {
+        userScore++;
+      } else if (result === 'Computer Wins!') {
+        computerScore++;
+      }
+      const overallScore = userScore + computerScore;
+      scoreElement.textContent = `Overall Score: ${overallScore} (User: ${userScore}, Computer: ${computerScore})`;
+    }
+  </script>
+</body>
+</html>

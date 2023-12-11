@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Uppercase Name Input</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <label for="nameInput">Enter your name: </label>
+  <input type="text" id="nameInput">
+  <p>Your entered name: <span id="displayName"></span></p>
+
+  <script>
+    document.getElementById('nameInput').addEventListener('input', function() {
+      const input = this.value.toUpperCase();
+      this.value = input;
+      document.getElementById('displayName').textContent = input;
+    });
+
+    document.getElementById('nameInput').addEventListener('keypress', function(event) {
+      const key = event.key.toUpperCase();
+      const allowedKeys = /^[A-Z\s]*$/;
+
+      if (!allowedKeys.test(key)) {
+        event.preventDefault();
+      }
+    });
+  </script>
+</body>
+</html>
